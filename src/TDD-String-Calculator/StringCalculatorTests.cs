@@ -17,5 +17,19 @@ namespace TDD_String_Calculator
             // Assert
             Assert.That(result, Is.EqualTo(0));
         }
+
+        [Test]
+        public void Add_Returns_Number_For_Single_Number()
+        {
+            // Arrange
+            var input = "1";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(1));
+        }
     }
 }

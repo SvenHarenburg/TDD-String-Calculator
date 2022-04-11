@@ -10,7 +10,15 @@ namespace TDD_String_Calculator
     {
         public int Add(string numbers)
         {
-            return 0;
+            var result = 0;
+
+            if (!string.IsNullOrEmpty(numbers))
+            {
+                result = int.Parse(numbers);
+            }
+
+            return result;
+
         }
     }
 }
