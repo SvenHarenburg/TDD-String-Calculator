@@ -19,7 +19,11 @@ namespace TDD_String_Calculator
                 if (numbers.Contains(delimiter))
                 {
                     var splitNumbers = numbers.Split(delimiter);
-                    result = int.Parse(splitNumbers[0]) + int.Parse(splitNumbers[1]);
+                    for (int i = 0; i < splitNumbers.Length; i++)
+                    {
+                        var number = int.Parse(splitNumbers[i]);
+                        result += number;
+                    }                    
                 }
                 else
                 {

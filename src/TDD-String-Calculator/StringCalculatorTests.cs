@@ -87,5 +87,19 @@ namespace TDD_String_Calculator
             // Assert
             Assert.That(result, Is.EqualTo(21));
         }
+
+        [Test]
+        public void Add_Returns_Sum_For_Three_Numbers()
+        {
+            // Arrange
+            var input = "1,2,3";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(6));
+        }
     }
 }
