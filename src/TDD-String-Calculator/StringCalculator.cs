@@ -23,20 +23,14 @@ namespace TDD_String_Calculator
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(numbers);
-            var sum = splitNumbers.Sum();
-            return sum;
+            return splitNumbers.Sum();            
         }
 
         private static int[] ParseInputNumbersToIntArray(string numbers)
-        {
-            var result = new int[numbers.Length];
-            var splitNumbers = numbers.Split(delimiter);
-            for (int i = 0; i < splitNumbers.Length; i++)
-            {
-                var number = int.Parse(splitNumbers[i]);
-                result[i] = number;
-            }
-            return result;
+        {            
+            return numbers
+                .Split(delimiter)
+                .Select(int.Parse).ToArray();            
         }
     }
 }
