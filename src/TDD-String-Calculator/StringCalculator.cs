@@ -12,22 +12,19 @@ namespace TDD_String_Calculator
 
         public int Add(string numbers)
         {
-            var result = 0;
-
-            if (!string.IsNullOrEmpty(numbers))
+            if (string.IsNullOrEmpty(numbers))
             {
-                if (numbers.Contains(delimiter))
-                {
-                    var splitNumbers = ParseInputNumbersToIntArray(numbers);
-                    result = splitNumbers.Sum();
-                }
-                else
-                {
-                    result = int.Parse(numbers);
-                }
+                return 0;
             }
 
-            return result;
+            if (!numbers.Contains(delimiter))
+            {
+                return int.Parse(numbers);
+            }
+
+            var splitNumbers = ParseInputNumbersToIntArray(numbers);
+            var sum = splitNumbers.Sum();
+            return sum;
         }
 
         private static int[] ParseInputNumbersToIntArray(string numbers)
