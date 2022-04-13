@@ -8,15 +8,17 @@ namespace TDD_String_Calculator
 {
     public class StringCalculator
     {
+        private const char delimiter = ',';
+
         public int Add(string numbers)
         {
             var result = 0;
 
             if (!string.IsNullOrEmpty(numbers))
             {
-                if (numbers.Contains(","))
+                if (numbers.Contains(delimiter))
                 {
-                    var splitNumbers = numbers.Split(',');
+                    var splitNumbers = numbers.Split(delimiter);
                     result = int.Parse(splitNumbers[0]) + int.Parse(splitNumbers[1]);
                 }
                 else
@@ -26,7 +28,6 @@ namespace TDD_String_Calculator
             }
 
             return result;
-
-        }
+        }        
     }
 }
