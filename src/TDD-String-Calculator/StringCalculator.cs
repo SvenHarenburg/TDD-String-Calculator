@@ -14,7 +14,15 @@ namespace TDD_String_Calculator
 
             if (!string.IsNullOrEmpty(numbers))
             {
-                result = int.Parse(numbers);
+                if (numbers.Contains(","))
+                {
+                    var splitNumbers = numbers.Split(',');
+                    result = int.Parse(splitNumbers[0]) + int.Parse(splitNumbers[1]);
+                }
+                else
+                {
+                    result = int.Parse(numbers);
+                }
             }
 
             return result;

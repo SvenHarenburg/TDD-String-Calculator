@@ -18,8 +18,8 @@ namespace TDD_String_Calculator
             Assert.That(result, Is.EqualTo(0));
         }
 
-        [Test]
-        public void Add_Returns_Number_For_Single_Number()
+        [Test]        
+        public void Add_Returns_Number_For_Single_Digit_Number()
         {
             // Arrange
             var input = "1";
@@ -30,6 +30,34 @@ namespace TDD_String_Calculator
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Add_Returns_Number_For_Multi_Digit_Number()
+        {
+            // Arrange
+            var input = "10";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void Add_Returns_3_For_1_And_2()
+        {
+            // Arrange
+            var input = "1,2";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(3));
         }
     }
 }
