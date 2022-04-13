@@ -47,7 +47,7 @@ namespace TDD_String_Calculator
         }
 
         [Test]
-        public void Add_Returns_Number_For_Two_Single_Digit_Numbers()
+        public void Add_Returns_Sum_For_Two_Single_Digit_Numbers()
         {
             // Arrange
             var input = "1,2";
@@ -61,7 +61,7 @@ namespace TDD_String_Calculator
         }
 
         [Test]
-        public void Add_Returns_Number_For_Two_Double_Digit_Numbers()
+        public void Add_Returns_Sum_For_Two_Double_Digit_Numbers()
         {
             // Arrange
             var input = "10,20";
@@ -75,7 +75,7 @@ namespace TDD_String_Calculator
         }
 
         [Test]
-        public void Add_Returns_Number_For_One_Single_Digit_Number_And_One_Double_Digit_Number()
+        public void Add_Returns_Sum_For_One_Single_Digit_Number_And_One_Double_Digit_Number()
         {
             // Arrange
             var input = "1,20";
