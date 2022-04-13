@@ -18,12 +18,8 @@ namespace TDD_String_Calculator
             {
                 if (numbers.Contains(delimiter))
                 {
-                    var splitNumbers = numbers.Split(delimiter);
-                    for (int i = 0; i < splitNumbers.Length; i++)
-                    {
-                        var number = int.Parse(splitNumbers[i]);
-                        result += number;
-                    }                    
+                    var splitNumbers = ParseInputNumbersToIntArray(numbers);
+                    result = splitNumbers.Sum();
                 }
                 else
                 {
@@ -31,6 +27,18 @@ namespace TDD_String_Calculator
                 }
             }
 
+            return result;
+        }
+
+        private static int[] ParseInputNumbersToIntArray(string numbers)
+        {
+            var result = new int[numbers.Length];
+            var splitNumbers = numbers.Split(delimiter);
+            for (int i = 0; i < splitNumbers.Length; i++)
+            {
+                var number = int.Parse(splitNumbers[i]);
+                result[i] = number;
+            }
             return result;
         }
     }
