@@ -28,6 +28,6 @@ namespace TDD_String_Calculator
             }
 
             return result;
-        }        
+        }
     }
 }
