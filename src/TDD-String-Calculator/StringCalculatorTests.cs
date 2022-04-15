@@ -101,5 +101,33 @@ namespace TDD_String_Calculator
             // Assert
             Assert.That(result, Is.EqualTo(6));
         }
+
+        [Test]
+        public void Add_Returns_Sum_When_New_Line_Is_Used_As_Delimiter()
+        {
+            // Arrange
+            var input = $"1\n2\n3";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Add_Returns_Sum_When_Mix_Of_Comma_And_New_Line_Are_Used_As_Delimiter()
+        {
+            // Arrange
+            var input = $"1\n2,3";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(6));
+        }
     }
 }

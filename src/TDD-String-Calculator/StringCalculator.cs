@@ -9,6 +9,7 @@ namespace TDD_String_Calculator
     public class StringCalculator
     {
         private const char delimiter = ',';
+        private readonly string[] delimiters = new[] { ",", "\n" };
 
         public int Add(string numbers)
         {
@@ -16,21 +17,28 @@ namespace TDD_String_Calculator
             {
                 return 0;
             }
-
-            if (!numbers.Contains(delimiter))
+            
+            if (!StringContainsAnyDelimiter(numbers))
             {
                 return int.Parse(numbers);
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(numbers);
             return splitNumbers.Sum();            
+        }        
+
+        private int[] ParseInputNumbersToIntArray(string numbers)
+        {
+            return numbers
+                .Split(delimiters, StringSplitOptions.None)
+                .Select(int.Parse)
+                .ToArray();
         }
 
-        private static int[] ParseInputNumbersToIntArray(string numbers)
+        private bool StringContainsAnyDelimiter(string numbers)
         {            
-            return numbers
-                .Split(delimiter)
-                .Select(int.Parse).ToArray();            
+            return delimiters.Any(
+                delimiter => numbers.Contains(delimiter));            
         }
     }
 }
