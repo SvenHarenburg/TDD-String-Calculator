@@ -146,5 +146,19 @@ namespace TDD_String_Calculator
             // Assert
             Assert.That(result, Is.EqualTo(3));
         }
+
+        [Test]
+        public void Add_Returns_Number_When_Delimiter_Is_Specified_But_Only_One_Number_In_String()
+        {
+            // Arrange
+            var input = $";\n1";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(1));
+        }
     }
 }

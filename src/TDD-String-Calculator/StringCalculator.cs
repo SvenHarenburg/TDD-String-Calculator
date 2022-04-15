@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace TDD_String_Calculator
 {
+    //private struct calculation
+    //{
+    //    public string numbers;
+    //    public string[] delimiters;
+    //}
+
     public class StringCalculator
     {
         private readonly string[] defaultDelimiters = new[] { ",", "\n" };
@@ -17,57 +23,48 @@ namespace TDD_String_Calculator
                 return 0;
             }
 
-            bool useSpecificDelimiter = false;
-            string specificDelimiter = "";
+            var delimiters = defaultDelimiters;
 
-            if (numbers.Contains("\n"))
+            var firstLineIsDelimiter = FirstLineIsDelimiterSpecification(numbers);
+            if (firstLineIsDelimiter)
+            {
+                var specificDelimiter = numbers.Split("\n")[0];
+                delimiters = new[] { specificDelimiter };
+                numbers = RemoveDelimiterSpecificationFromString(numbers, specificDelimiter);
+            }
+
+            var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
+            return splitNumbers.Sum();
+        }                
+
+        private string RemoveDelimiterSpecificationFromString(string numbers, string delimiter)
+        {
+            var numbersWithoutDelimiterSpecification = numbers.Remove(0, delimiter.Length + "\n".Length);
+            return numbersWithoutDelimiterSpecification;
+        }
+
+        private bool FirstLineIsDelimiterSpecification(string numbers)
+        {
+            bool firstLineIsDelimiter = false;
+            if (numbers.Contains('\n'))
             {
                 var firstLine = numbers.Split("\n")[0];
-                var firstLineIsDelimiter = !int.TryParse(firstLine, out _);
-                if (firstLineIsDelimiter)
-                {
-                    useSpecificDelimiter = true;
-                    specificDelimiter = firstLine;
-                }
+                firstLineIsDelimiter = !int.TryParse(firstLine, out _);
             }
-
-            if (useSpecificDelimiter)
-            {
-                var numbersWithoutFirstLine = numbers.Remove(0, specificDelimiter.Length + "\n".Length);
-                var splitNumbers = ParseInputNumbersToIntArray(numbersWithoutFirstLine, specificDelimiter);
-                return splitNumbers.Sum();
-            }
-            else
-            {
-                if (!StringContainsAnyDefaultDelimiter(numbers))
-                {
-                    return int.Parse(numbers);
-                }
-
-                var splitNumbers = ParseInputNumbersToIntArrayWithDefaultDelimiters(numbers);
-                return splitNumbers.Sum();
-            }
+            return firstLineIsDelimiter;
         }
 
-        private int[] ParseInputNumbersToIntArrayWithDefaultDelimiters(string numbers)
+        private int[] ParseInputNumbersToIntArray(string numbers, string[] delimiters)
         {
             return numbers
-                .Split(defaultDelimiters, StringSplitOptions.None)
+                .Split(delimiters, StringSplitOptions.None)
                 .Select(int.Parse)
                 .ToArray();
         }
 
-        private int[] ParseInputNumbersToIntArray(string numbers, string delimiter)
+        private bool StringContainsAnyDelimiters(string numbers, string[] delimiters)
         {
-            return numbers
-                .Split(delimiter)
-                .Select(int.Parse)
-                .ToArray();
-        }
-
-        private bool StringContainsAnyDefaultDelimiter(string numbers)
-        {
-            return defaultDelimiters.Any(
+            return delimiters.Any(
                 delimiter => numbers.Contains(delimiter));
         }
     }
