@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace TDD_String_Calculator
 {
-    //private struct calculation
-    //{
-    //    public string numbers;
-    //    public string[] delimiters;
-    //}
-
     public class StringCalculator
     {
         private readonly string[] defaultDelimiters = new[] { ",", "\n" };
@@ -34,8 +28,18 @@ namespace TDD_String_Calculator
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
+            ValidateNumbers(splitNumbers);
             return splitNumbers.Sum();
         }                
+
+        private void ValidateNumbers(int[] numbers)
+        {
+            if(numbers.Any(number => number < 0))
+            {
+                var negativeNumber = numbers.First(number => number < 0);
+                throw new Exception($"negatives not allowed: {negativeNumber}");
+            }
+        }
 
         private string RemoveDelimiterSpecificationFromString(string numbers, string delimiter)
         {

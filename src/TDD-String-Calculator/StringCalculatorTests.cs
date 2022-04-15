@@ -134,6 +134,7 @@ namespace TDD_String_Calculator
         [TestCase(';', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Semicolon")]
         [TestCase(',', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Comma")]
         [TestCase('_', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Underscore")]
+        [TestCase('-', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Minus")]
         public void Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line(char delimiter)
         {
             // Arrange
@@ -159,6 +160,15 @@ namespace TDD_String_Calculator
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Add_Throws_Exception_When_Inputting_Negative_Number()
+        {
+            var input = "1,-1";
+            var sut = new StringCalculator();
+
+            Assert.Throws<Exception>(() => sut.Add(input), "negatives not allowed: -1");
         }
     }
 }
