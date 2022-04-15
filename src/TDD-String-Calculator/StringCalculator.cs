@@ -61,11 +61,5 @@ namespace TDD_String_Calculator
                 .Select(int.Parse)
                 .ToArray();
         }
-
-        private bool StringContainsAnyDelimiters(string numbers, string[] delimiters)
-        {
-            return delimiters.Any(
-                delimiter => numbers.Contains(delimiter));
-        }
     }
 }
