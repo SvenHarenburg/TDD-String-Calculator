@@ -129,5 +129,22 @@ namespace TDD_String_Calculator
             // Assert
             Assert.That(result, Is.EqualTo(6));
         }
+
+        [Test]
+        [TestCase(';', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Semicolon")]
+        [TestCase(',', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Comma")]
+        [TestCase('_', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Underscore")]
+        public void Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line(char delimiter)
+        {
+            // Arrange
+            var input = $"{delimiter}\n1{delimiter}2";
+            var sut = new StringCalculator();
+
+            // Act
+            var result = sut.Add(input);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(3));
+        }
     }
 }
