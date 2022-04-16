@@ -32,9 +32,10 @@ namespace TDD_String_Calculator
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
-            ValidateNumbers(splitNumbers);
-            AddOccured?.Invoke(numbers, 1);
-            return splitNumbers.Sum();
+            ValidateNumbers(splitNumbers);            
+            var sum = splitNumbers.Sum();
+            AddOccured?.Invoke(numbers, sum);
+            return sum;
         }        
         
         public int GetCalledCount()

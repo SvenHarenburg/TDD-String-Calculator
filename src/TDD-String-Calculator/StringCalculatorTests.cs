@@ -249,5 +249,19 @@ namespace TDD_String_Calculator
 
             Assert.That(givenInput, Is.EqualTo("2"));
         }
+
+        [Test]
+        public void AddOccured_Contains_Same_Result_As_Given_By_Add()
+        {
+            var sut = new StringCalculator();
+            int givenResult = 0;
+            sut.AddOccured += (input, result) => {
+                givenResult = result;
+            };
+
+            var addResult = sut.Add("1,2");
+
+            Assert.That(givenResult,Is.EqualTo(addResult));
+        }
     }
 }
