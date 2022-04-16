@@ -209,5 +209,17 @@ namespace TDD_String_Calculator
 
             Assert.That(result, Is.EqualTo(1));
         }
+
+        [Test]
+        public void GetCalledCount_Returns_2_When_Add_Has_Been_Called_Twice()
+        {
+            var sut = new StringCalculator();
+            sut.Add("1");
+            sut.Add("1");
+
+            var result = sut.GetCalledCount();
+
+            Assert.That(result, Is.EqualTo(2));
+        }
     }
 }
