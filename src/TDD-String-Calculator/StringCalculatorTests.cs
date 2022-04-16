@@ -221,5 +221,19 @@ namespace TDD_String_Calculator
 
             Assert.That(result, Is.EqualTo(2));
         }
+
+        [Test]
+        public void AddOccured_Gets_Raised_When_Add_Occured()
+        {
+            var sut = new StringCalculator();
+            var hasBeenRaised = false;
+            sut.AddOccured += (input, result) => { 
+                hasBeenRaised = true; 
+            };
+
+            sut.Add("1");
+
+            Assert.That(hasBeenRaised, Is.True);
+        }
     }
 }

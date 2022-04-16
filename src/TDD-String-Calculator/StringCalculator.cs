@@ -11,6 +11,8 @@ namespace TDD_String_Calculator
         private readonly string[] defaultDelimiters = new[] { ",", "\n" };
         private int addCallCount = 0;
 
+        public event Action<string, int>? AddOccured;
+
         public int Add(string numbers)
         {
             addCallCount++;
@@ -31,6 +33,7 @@ namespace TDD_String_Calculator
 
             var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
             ValidateNumbers(splitNumbers);
+            AddOccured?.Invoke("1", 1);
             return splitNumbers.Sum();
         }        
         
