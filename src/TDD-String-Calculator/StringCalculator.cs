@@ -30,7 +30,12 @@ namespace TDD_String_Calculator
             var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
             ValidateNumbers(splitNumbers);
             return splitNumbers.Sum();
-        }                
+        }        
+        
+        public int GetCalledCount()
+        {
+            return 0;
+        }
 
         private void ValidateNumbers(int[] numbers)
         {

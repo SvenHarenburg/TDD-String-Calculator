@@ -188,5 +188,15 @@ namespace TDD_String_Calculator
 
             Assert.Throws<Exception>(() => sut.Add(input), "negatives not allowed: -1,-2");
         }
+
+        [Test]
+        public void GetCalledCount_Returns_0_When_Add_Has_Not_Been_Called()
+        {
+            var sut = new StringCalculator();
+            
+            var result = sut.GetCalledCount();
+
+            Assert.That(result, Is.EqualTo(0));
+        } 
     }
 }
