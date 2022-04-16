@@ -22,16 +22,16 @@ namespace TDD_String_Calculator
             }
 
             var delimiters = defaultDelimiters;
-
+            var cleanedNumbers = numbers;
             var firstLineIsDelimiter = FirstLineIsDelimiterSpecification(numbers);
             if (firstLineIsDelimiter)
             {
                 var specificDelimiter = numbers.Split("\n")[0];
                 delimiters = new[] { specificDelimiter };
-                numbers = RemoveDelimiterSpecificationFromString(numbers, specificDelimiter);
+                cleanedNumbers = RemoveDelimiterSpecificationFromString(numbers, specificDelimiter);
             }
 
-            var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
+            var splitNumbers = ParseInputNumbersToIntArray(cleanedNumbers, delimiters);
             ValidateNumbers(splitNumbers);            
             var sum = splitNumbers.Sum();
             AddOccured?.Invoke(numbers, sum);

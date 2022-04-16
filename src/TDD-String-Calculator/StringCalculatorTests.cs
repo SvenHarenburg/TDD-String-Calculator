@@ -251,6 +251,21 @@ namespace TDD_String_Calculator
         }
 
         [Test]
+        public void AddOccured_Contains_Given_Input_When_Add_Is_Called_With_Delimiter_Specification_Line()
+        {
+            var sut = new StringCalculator();
+            string givenInput = "";
+            sut.AddOccured += (input, result) => {
+                givenInput = input;
+            };
+            var input = ";\n1";
+
+            sut.Add(input);
+
+            Assert.That(givenInput, Is.EqualTo(input));
+        }
+
+        [Test]
         public void AddOccured_Contains_Same_Result_As_Given_By_Add()
         {
             var sut = new StringCalculator();
