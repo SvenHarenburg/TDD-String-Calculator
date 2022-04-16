@@ -165,10 +165,28 @@ namespace TDD_String_Calculator
         [Test]
         public void Add_Throws_Exception_When_Inputting_Negative_Number()
         {
-            var input = "1,-1";
+            var input = "-1";
             var sut = new StringCalculator();
 
             Assert.Throws<Exception>(() => sut.Add(input), "negatives not allowed: -1");
+        }
+
+        [Test]
+        public void Add_Throws_Exception_When_Inputting_Multiple_Negative_Numbers()
+        {
+            var input = "-1,-2";
+            var sut = new StringCalculator();
+
+            Assert.Throws<Exception>(() => sut.Add(input), "negatives not allowed: -1,-2");
+        }
+
+        [Test]
+        public void Add_Throws_Exception_When_Inputting_Both_Positive_And_Negative_Numbers()
+        {
+            var input = "1,-1,2,-2";
+            var sut = new StringCalculator();
+
+            Assert.Throws<Exception>(() => sut.Add(input), "negatives not allowed: -1,-2");
         }
     }
 }

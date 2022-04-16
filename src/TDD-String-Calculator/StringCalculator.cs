@@ -34,10 +34,11 @@ namespace TDD_String_Calculator
 
         private void ValidateNumbers(int[] numbers)
         {
-            if(numbers.Any(number => number < 0))
+            var negativeNumbers = numbers.Where(number => number < 0);
+            if(negativeNumbers.Any())
             {
-                var negativeNumber = numbers.First(number => number < 0);
-                throw new Exception($"negatives not allowed: {negativeNumber}");
+                var joined = string.Join(",", negativeNumbers);
+                throw new Exception($"negatives not allowed: {joined}");
             }
         }
 
