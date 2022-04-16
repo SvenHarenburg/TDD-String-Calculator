@@ -9,9 +9,11 @@ namespace TDD_String_Calculator
     public class StringCalculator
     {
         private readonly string[] defaultDelimiters = new[] { ",", "\n" };
+        private bool addHasBeenCalled = false;
 
         public int Add(string numbers)
         {
+            addHasBeenCalled = true;
             if (string.IsNullOrEmpty(numbers))
             {
                 return 0;
@@ -34,7 +36,7 @@ namespace TDD_String_Calculator
         
         public int GetCalledCount()
         {
-            return 0;
+            return addHasBeenCalled ? 1 : 0;
         }
 
         private void ValidateNumbers(int[] numbers)
