@@ -33,7 +33,7 @@ namespace TDD_String_Calculator
 
             var splitNumbers = ParseInputNumbersToIntArray(numbers, delimiters);
             ValidateNumbers(splitNumbers);
-            AddOccured?.Invoke("1", 1);
+            AddOccured?.Invoke(numbers, 1);
             return splitNumbers.Sum();
         }        
         
