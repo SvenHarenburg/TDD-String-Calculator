@@ -9,6 +9,7 @@ namespace TDD_String_Calculator
     public class StringCalculator
     {
         private readonly string[] defaultDelimiters = new[] { ",", "\n" };
+        private const string DelimiterSpecificationIndicator = "//";
         private int addCallCount = 0;
 
         public event Action<string, int>? AddOccured;
@@ -26,20 +27,20 @@ namespace TDD_String_Calculator
             var firstLineIsDelimiter = FirstLineIsDelimiterSpecification(numbers);
             if (firstLineIsDelimiter)
             {
-                var specificDelimiter = numbers.Split("\n")[0];
+                var specificDelimiter = numbers.Split("\n")[0].Remove(0, 2);
                 delimiters = new[] { specificDelimiter };
                 cleanedNumbers = RemoveDelimiterSpecificationFromString(numbers, specificDelimiter);
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(cleanedNumbers, delimiters);
             RemoveNumbersGreaterThan1000(ref splitNumbers);
-            ValidateNumbers(splitNumbers);            
-            
+            ValidateNumbers(splitNumbers);
+
             var sum = splitNumbers.Sum();
             RaiseAddOccured(numbers, sum);
             return sum;
-        }                
-        
+        }
+
         private void RemoveNumbersGreaterThan1000(ref int[] numbers)
         {
             numbers = numbers.Where(number => number <= 1000).ToArray();
@@ -58,7 +59,7 @@ namespace TDD_String_Calculator
         private void ValidateNumbers(int[] numbers)
         {
             var negativeNumbers = numbers.Where(number => number < 0);
-            if(negativeNumbers.Any())
+            if (negativeNumbers.Any())
             {
                 var joined = string.Join(",", negativeNumbers);
                 throw new Exception($"negatives not allowed: {joined}");
@@ -67,19 +68,17 @@ namespace TDD_String_Calculator
 
         private string RemoveDelimiterSpecificationFromString(string numbers, string delimiter)
         {
-            var numbersWithoutDelimiterSpecification = numbers.Remove(0, delimiter.Length + "\n".Length);
+            var amountOfCharactersToRemove = DelimiterSpecificationIndicator.Length;
+            amountOfCharactersToRemove += delimiter.Length;
+            amountOfCharactersToRemove += "\n".Length;
+
+            var numbersWithoutDelimiterSpecification = numbers.Remove(0, amountOfCharactersToRemove);
             return numbersWithoutDelimiterSpecification;
         }
 
         private bool FirstLineIsDelimiterSpecification(string numbers)
         {
-            bool firstLineIsDelimiter = false;
-            if (numbers.Contains('\n'))
-            {
-                var firstLine = numbers.Split("\n")[0];
-                firstLineIsDelimiter = !int.TryParse(firstLine, out _);
-            }
-            return firstLineIsDelimiter;
+            return numbers.StartsWith(DelimiterSpecificationIndicator);
         }
 
         private int[] ParseInputNumbersToIntArray(string numbers, string[] delimiters)

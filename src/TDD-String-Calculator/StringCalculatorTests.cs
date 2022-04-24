@@ -138,7 +138,7 @@ namespace TDD_String_Calculator
         public void Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line(char delimiter)
         {
             // Arrange
-            var input = $"{delimiter}\n1{delimiter}2";
+            var input = $"//{delimiter}\n1{delimiter}2";
             var sut = new StringCalculator();
 
             // Act
@@ -148,11 +148,22 @@ namespace TDD_String_Calculator
             Assert.That(result, Is.EqualTo(3));
         }
 
+        //[Test]
+        //public void Add_Returns_Sum_When_Delimiter_Longer_Than_One_Character()
+        //{
+        //    var input = $"***\n1***2***3";
+        //    var sut = new StringCalculator();
+
+        //    var result = sut.Add(input);
+
+        //    Assert.That(result, Is.EqualTo(6));
+        //}
+
         [Test]
         public void Add_Returns_Number_When_Delimiter_Is_Specified_But_Only_One_Number_In_String()
         {
             // Arrange
-            var input = $";\n1";
+            var input = $"//;\n1";
             var sut = new StringCalculator();
 
             // Act
@@ -258,7 +269,7 @@ namespace TDD_String_Calculator
             sut.AddOccured += (input, result) => {
                 givenInput = input;
             };
-            var input = ";\n1";
+            var input = "//;\n1";
 
             sut.Add(input);
 
