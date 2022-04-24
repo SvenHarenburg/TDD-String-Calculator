@@ -173,6 +173,17 @@ namespace TDD_String_Calculator
         }
 
         [Test]
+        public void Add_Returns_Sum_When_Multiple_Delimiters_Are_Specified_And_Delimiters_Are_Longer_Than_One_Character()
+        {
+            var input = $"//[**][%%]\n1**2%%3";
+            var sut = new StringCalculator();
+
+            var result = sut.Add(input);
+
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
         public void Add_Returns_Number_When_Delimiter_Is_Specified_But_Only_One_Number_In_String()
         {
             // Arrange
