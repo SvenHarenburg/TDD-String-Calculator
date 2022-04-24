@@ -8,7 +8,7 @@ namespace TDD_String_Calculator
 {
     public class StringCalculator
     {
-        private readonly string[] defaultDelimiters = new[] { ",", "\n" };
+        private readonly List<string> defaultDelimiters = new List<string>() { ",", "\n" };
         private const string DelimiterSpecificationIndicator = "//";
         private int addCallCount = 0;
 
@@ -27,9 +27,8 @@ namespace TDD_String_Calculator
             var firstLineIsDelimiter = FirstLineIsDelimiterSpecification(numbers);
             if (firstLineIsDelimiter)
             {
-                var specificDelimiter = ReadSpecificDelimiter(numbers);
-                delimiters = new[] { specificDelimiter };
-                cleanedNumbers = RemoveDelimiterSpecificationFromString(numbers, specificDelimiter);
+                delimiters = ReadSpecificDelimiters(numbers);
+                cleanedNumbers = RemoveDelimiterSpecificationFromString(numbers);
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(cleanedNumbers, delimiters);
@@ -41,18 +40,50 @@ namespace TDD_String_Calculator
             return sum;
         }
 
-        private string ReadSpecificDelimiter(string numbers)
+        private List<string> ReadSpecificDelimiters(string numbers)
         {
             var specificationLine = numbers.Split("\n")[0];
             specificationLine = specificationLine.Remove(0, DelimiterSpecificationIndicator.Length);
 
+            var delimiters = new List<string>();
             if (specificationLine.StartsWith('[') && specificationLine.EndsWith(']'))
             {
-                specificationLine = specificationLine.Substring(1, specificationLine.Length - 2);                
+                delimiters = ReadDelimitersInSquareBrackets(specificationLine);   
+            }
+            else
+            {
+                delimiters.Add(specificationLine);
             }
 
-            var specificDelimiter = specificationLine;
-            return specificDelimiter;
+            return delimiters;
+        }
+
+        private List<string> ReadDelimitersInSquareBrackets(string specificationLine)
+        {
+            var delimiters = new List<string>();
+            var segmentOpen = false;
+            var currentDelimiter = new StringBuilder();
+
+            for (int i = 0; i < specificationLine.Length; i++)
+            {
+                var currentChar = specificationLine[i];
+                if (currentChar == '[' && !segmentOpen)
+                {
+                    segmentOpen = true;
+                    currentDelimiter.Clear();
+                    continue;
+                }
+
+                if (currentChar == ']' && segmentOpen)
+                {
+                    segmentOpen = false;
+                    delimiters.Add(currentDelimiter.ToString());
+                    continue;
+                }
+
+                currentDelimiter.Append(currentChar);
+            }
+            return delimiters;
         }
 
         private void RemoveNumbersGreaterThan1000(ref int[] numbers)
@@ -80,18 +111,11 @@ namespace TDD_String_Calculator
             }
         }
 
-        private string RemoveDelimiterSpecificationFromString(string numbers, string delimiter)
+        private string RemoveDelimiterSpecificationFromString(string numbers)
         {
-            var amountOfCharactersToRemove = DelimiterSpecificationIndicator.Length;
-            amountOfCharactersToRemove += delimiter.Length;
-            amountOfCharactersToRemove += "\n".Length;
-            if (delimiter.Length > 1)
-            {
-                // Greater than 1 means it has to be encased in [] so remove those too
-                amountOfCharactersToRemove += 2;
-            }
+            var indexOfNewLine = numbers.IndexOf("\n");
+            var numbersWithoutDelimiterSpecification = numbers.Substring(indexOfNewLine, numbers.Length - indexOfNewLine);
 
-            var numbersWithoutDelimiterSpecification = numbers.Remove(0, amountOfCharactersToRemove);
             return numbersWithoutDelimiterSpecification;
         }
 
@@ -100,10 +124,10 @@ namespace TDD_String_Calculator
             return numbers.StartsWith(DelimiterSpecificationIndicator);
         }
 
-        private int[] ParseInputNumbersToIntArray(string numbers, string[] delimiters)
+        private int[] ParseInputNumbersToIntArray(string numbers, List<string> delimiters)
         {
             return numbers
-                .Split(delimiters, StringSplitOptions.None)
+                .Split(delimiters.ToArray(), StringSplitOptions.None)
                 .Select(int.Parse)
                 .ToArray();
         }
