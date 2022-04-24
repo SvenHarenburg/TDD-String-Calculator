@@ -135,6 +135,8 @@ namespace TDD_String_Calculator
         [TestCase(',', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Comma")]
         [TestCase('_', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Underscore")]
         [TestCase('-', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Minus")]
+        [TestCase('[', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Opening_Square_Bracket")]
+        [TestCase(']', TestName = $"{nameof(Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line)}_And_Delimiter_Is_Closing_Square_Bracket")]
         public void Add_Returns_Sum_When_Delimiter_Is_Specified_In_First_Line(char delimiter)
         {
             // Arrange
@@ -148,16 +150,49 @@ namespace TDD_String_Calculator
             Assert.That(result, Is.EqualTo(3));
         }
 
-        //[Test]
-        //public void Add_Returns_Sum_When_Delimiter_Longer_Than_One_Character()
-        //{
-        //    var input = $"***\n1***2***3";
-        //    var sut = new StringCalculator();
+        [Test]
+        public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character()
+        {
+            var input = $"//[***]\n1***2***3";
+            var sut = new StringCalculator();
 
-        //    var result = sut.Add(input);
+            var result = sut.Add(input);
 
-        //    Assert.That(result, Is.EqualTo(6));
-        //}
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character_And_Includes_An_Opening_Square_Bracket()
+        {
+            var input = $"//[[**]\n1[**2[**3";            
+            var sut = new StringCalculator();
+
+            var result = sut.Add(input);
+
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character_And_Includes_A_Closing_Square_Bracket()
+        {
+            var input = $"//[]**]\n1]**2]**3";
+            var sut = new StringCalculator();
+
+            var result = sut.Add(input);
+
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character_And_Includes_Opening_And_Closed_Square_Brackets()
+        {
+            var input = $"//[[*]]\n1[*]2[*]3";
+            var sut = new StringCalculator();
+
+            var result = sut.Add(input);
+
+            Assert.That(result, Is.EqualTo(6));
+        }
 
         [Test]
         public void Add_Returns_Number_When_Delimiter_Is_Specified_But_Only_One_Number_In_String()

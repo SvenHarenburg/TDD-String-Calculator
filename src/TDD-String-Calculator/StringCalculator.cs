@@ -27,7 +27,7 @@ namespace TDD_String_Calculator
             var firstLineIsDelimiter = FirstLineIsDelimiterSpecification(numbers);
             if (firstLineIsDelimiter)
             {
-                var specificDelimiter = numbers.Split("\n")[0].Remove(0, 2);
+                var specificDelimiter = ReadSpecificDelimiter(numbers);
                 delimiters = new[] { specificDelimiter };
                 cleanedNumbers = RemoveDelimiterSpecificationFromString(numbers, specificDelimiter);
             }
@@ -39,6 +39,20 @@ namespace TDD_String_Calculator
             var sum = splitNumbers.Sum();
             RaiseAddOccured(numbers, sum);
             return sum;
+        }
+
+        private string ReadSpecificDelimiter(string numbers)
+        {
+            var specificationLine = numbers.Split("\n")[0];
+            specificationLine = specificationLine.Remove(0, DelimiterSpecificationIndicator.Length);
+
+            if (specificationLine.StartsWith('[') && specificationLine.EndsWith(']'))
+            {
+                specificationLine = specificationLine.Substring(1, specificationLine.Length - 2);                
+            }
+
+            var specificDelimiter = specificationLine;
+            return specificDelimiter;
         }
 
         private void RemoveNumbersGreaterThan1000(ref int[] numbers)
@@ -71,6 +85,11 @@ namespace TDD_String_Calculator
             var amountOfCharactersToRemove = DelimiterSpecificationIndicator.Length;
             amountOfCharactersToRemove += delimiter.Length;
             amountOfCharactersToRemove += "\n".Length;
+            if (delimiter.Length > 1)
+            {
+                // Greater than 1 means it has to be encased in [] so remove those too
+                amountOfCharactersToRemove += 2;
+            }
 
             var numbersWithoutDelimiterSpecification = numbers.Remove(0, amountOfCharactersToRemove);
             return numbersWithoutDelimiterSpecification;
