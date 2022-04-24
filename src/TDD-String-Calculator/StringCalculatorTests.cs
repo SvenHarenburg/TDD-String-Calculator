@@ -161,39 +161,6 @@ namespace TDD_String_Calculator
             Assert.That(result, Is.EqualTo(6));
         }
 
-        //[Test]
-        //public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character_And_Includes_An_Opening_Square_Bracket()
-        //{
-        //    var input = $"//[[**]\n1[**2[**3";            
-        //    var sut = new StringCalculator();
-
-        //    var result = sut.Add(input);
-
-        //    Assert.That(result, Is.EqualTo(6));
-        //}
-
-        //[Test]
-        //public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character_And_Includes_A_Closing_Square_Bracket()
-        //{
-        //    var input = $"//[]**]\n1]**2]**3";
-        //    var sut = new StringCalculator();
-
-        //    var result = sut.Add(input);
-
-        //    Assert.That(result, Is.EqualTo(6));
-        //}
-
-        //[Test]
-        //public void Add_Returns_Sum_When_Specified_Delimiter_Longer_Than_One_Character_And_Includes_Opening_And_Closed_Square_Brackets()
-        //{
-        //    var input = $"//[[*]]\n1[*]2[*]3";
-        //    var sut = new StringCalculator();
-
-        //    var result = sut.Add(input);
-
-        //    Assert.That(result, Is.EqualTo(6));
-        //}
-
         [Test]
         public void Add_Returns_Sum_When_Multiple_Delimiters_Are_Specified()
         {
@@ -204,7 +171,6 @@ namespace TDD_String_Calculator
 
             Assert.That(result, Is.EqualTo(6));
         }
-
 
         [Test]
         public void Add_Returns_Number_When_Delimiter_Is_Specified_But_Only_One_Number_In_String()
