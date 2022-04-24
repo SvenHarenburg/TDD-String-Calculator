@@ -278,5 +278,17 @@ namespace TDD_String_Calculator
 
             Assert.That(givenResult,Is.EqualTo(addResult));
         }
+
+        [Test]
+        public void Add_Ignores_Numbers_Greater_Than_1000()
+        {
+            var input = $"2,1001";
+            var sut = new StringCalculator();
+
+            var result = sut.Add(input);
+                        
+            Assert.That(result, Is.EqualTo(2));
+        }
+
     }
 }

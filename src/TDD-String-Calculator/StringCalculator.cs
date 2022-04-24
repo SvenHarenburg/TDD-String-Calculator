@@ -32,13 +32,19 @@ namespace TDD_String_Calculator
             }
 
             var splitNumbers = ParseInputNumbersToIntArray(cleanedNumbers, delimiters);
+            RemoveNumbersGreaterThan1000(ref splitNumbers);
             ValidateNumbers(splitNumbers);            
-
+            
             var sum = splitNumbers.Sum();
             RaiseAddOccured(numbers, sum);
             return sum;
         }                
         
+        private void RemoveNumbersGreaterThan1000(ref int[] numbers)
+        {
+            numbers = numbers.Where(number => number <= 1000).ToArray();
+        }
+
         public int GetCalledCount()
         {
             return addCallCount;
